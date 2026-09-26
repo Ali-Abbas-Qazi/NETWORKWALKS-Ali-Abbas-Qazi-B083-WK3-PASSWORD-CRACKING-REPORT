@@ -86,10 +86,10 @@ A dictionary attack tests a list of candidate passwords, one at a time, against 
 
 I ran the locked file through OnlineHashCrack's PDF Hash Extractor, which uses `pdf2john` on the back end. The file gets uploaded to their service for parsing (worth noting for anything sensitive — more on that in the comparison below), and the tool returns a crackable hash in standard JTR/Hashcat format.
 
-<img width="1870" height="918" alt="Finding Hash" src="https://github.com/user-attachments/assets/e29b15ac-1cf4-46f6-a069-d81828301dbd" />
+<img width="1870" height="918" alt="Finding Hash" src="https://github.com/user-attachments/assets/433d5375-3eda-4d3c-b278-14fc0f10bc34" />
 
 
-![Hash Extraction via Web Extractor](assets/screenshots/Finding_Hash.png)
+![Hash Extraction via Web Extractor](<Finding Hash.png>)
 
 ### Step 2 — Preparing the Hash File
 
@@ -107,37 +107,37 @@ $pdf$4*4*128*-1060*1*16*55d1a5c14175da449753199e44971d32*32*777fd021a7f3c5ae598c
 
 One thing that's easy to miss here: if the hash gets copied with stray characters (a leading `b'`, for example, which shows up if it was copied out of a Python byte string), John the Ripper won't recognize the format. It has to start clean, right at `$pdf$`.
 
-<img width="1270" height="587" alt="Saving hash1 as txt" src="https://github.com/user-attachments/assets/ea855e9b-7078-4fab-b262-9c6bee194e7c" />
+<img width="1270" height="587" alt="Saving hash1 as txt" src="https://github.com/user-attachments/assets/6cb79089-9111-4c8f-8df6-8368e725ac48" />
 
 
-![Saving Hash to Local Text File](assets/screenshots/Saving_hash1_as_txt.png)
+![Saving Hash to Local Text File](<Saving hash1 as txt.png>)
 
 ### Step 3 — Loading the Hash into Johnny
 
 With `hash1.txt` saved, I opened Johnny (pointed at the `john.exe` binary from the Jumbo build) and imported the password file. Before the attack starts, Johnny shows the hash sitting at 0% cracked, format detected as PDF.
 
-<img width="874" height="686" alt="uploaded hash file to johnny" src="https://github.com/user-attachments/assets/d16ac799-65d2-44fe-b58d-b3baf852b19e" />
+<img width="874" height="686" alt="uploaded hash file to johnny" src="https://github.com/user-attachments/assets/b6a3b641-3515-472b-9dc5-9c42366cabd5" />
 
 
-![Loading Hash File into Johnny](assets/screenshots/uploaded_hash_file_to_johnny.png)
+![Loading Hash File into Johnny](<uploaded hash file to johnny.png>)
 
 ### Step 4 — Cracking and Verifying
 
 Starting the attack, Johnny made short work of it — the password recovered was `password1`.
 
-<img width="874" height="686" alt="hash1 Cracked" src="https://github.com/user-attachments/assets/62e30e44-1981-4856-a93b-68e97db65de5" />
+<img width="874" height="686" alt="hash1 Cracked" src="https://github.com/user-attachments/assets/5435d21b-256d-43d7-b4c2-4291a447bf4a" />
 
 
-![Cracked Password in Johnny GUI](assets/screenshots/hash1_Cracked.png)
+![Cracked Password in Johnny GUI](<hash1 Cracked.png>)
 
 > **Flag captured:** `nw{networkwalks_flag1_jtr_270521_1}`
 
 Opening the original PDF in Adobe Acrobat Reader with the recovered password confirmed the crack and revealed the flag.
 
-<img width="1870" height="918" alt="Unlocked PDF file" src="https://github.com/user-attachments/assets/c87b8734-dbb2-4319-8208-51ab06c301c3" />
+<img width="1870" height="918" alt="Unlocked PDF file" src="https://github.com/user-attachments/assets/51330e77-bd96-4bfb-9622-49874a48c277" />
 
 
-![Decrypted PDF Flag Verification](assets/screenshots/Unlocked_PDF_file.png)
+![Decrypted PDF Flag Verification](<Unlocked PDF file.png>)
 
 > **Pro Tip (CLI Alternative):** On Linux/Kali or Windows PowerShell with John the Ripper installed, this entire extraction and cracking workflow can be executed directly from the terminal without external web utilities or GUI frontends:
 > ```bash
@@ -159,28 +159,28 @@ Opening the original PDF in Adobe Acrobat Reader with the recovered password con
 
 For the second approach, I used Networkwalks' own Hash Calculator. Unlike OnlineHashCrack, this tool parses the PDF client-side — nothing gets uploaded to a server, which is a meaningful difference if you're working with anything you'd rather not send anywhere.
 
-<img width="1870" height="918" alt="NWT Hash found" src="https://github.com/user-attachments/assets/7112eb08-9bf4-41a7-af08-a1b33bfaab6c" />
+<img width="1870" height="918" alt="NWT Hash found" src="https://github.com/user-attachments/assets/3a2d9da5-b828-4e0b-934a-413fef45b11c" />
 
 
-![Networkwalks Hash Calculator Extraction](assets/screenshots/NWT_Hash_found.png)
+![Networkwalks Hash Calculator Extraction](<NWT Hash found.png>)
 
 ### Step 2 — Running the Dictionary Attack
 
 I pasted the extracted `$pdf$` hash into Networkwalks' Password Cracker and ran it against the tool's built-in 100-word list. It matched `password1` after 91 attempts at roughly 9 passwords per second — under 10 seconds, start to finish, against a wordlist smaller than most people's contact lists.
 
-<img width="1870" height="1194" alt="NWT Password found" src="https://github.com/user-attachments/assets/c5726a1c-0663-4e5b-be98-383602a5087e" />
+<img width="1870" height="1194" alt="NWT Password found" src="https://github.com/user-attachments/assets/86ad608d-5015-447c-a54b-5bf70ce79543" />
 
 
-![Dictionary Attack Match](assets/screenshots/NWT_Password_found.png)
+![Dictionary Attack Match](<NWT Password found.png>)
 
 ### Step 3 — Confirming Access
 
 Same as before: entering `password1` into the encrypted PDF opened it and confirmed the flag.
 
-<img width="1870" height="918" alt="Unlocked PDF file" src="https://github.com/user-attachments/assets/999a325f-6fd3-4d4f-8387-a9804a366e6a" />
+<img width="1870" height="918" alt="Unlocked PDF file" src="https://github.com/user-attachments/assets/ba4ee7c0-163b-4295-a202-03ff71ec4a06" />
 
 
-![Decrypted PDF Verification](assets/screenshots/Unlocked_PDF_file.png)
+![Decrypted PDF Verification](<Unlocked PDF file.png>)
 
 ---
 
