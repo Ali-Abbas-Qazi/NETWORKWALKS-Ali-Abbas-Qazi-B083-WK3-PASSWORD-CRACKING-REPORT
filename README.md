@@ -1,9 +1,34 @@
+<div align="center">
+
 # Cybersecurity Lab Report: PDF Password Recovery & Hash Analysis
 
-**Date:** September 2026
-**Author:** Ali Abbas Qazi
-**Tools Used:** John the Ripper (Jumbo v1.9.0-jumbo-1), Johnny GUI v2.2, OnlineHashCrack PDF Hash Extractor, Networkwalks Hash Calculator, Networkwalks Password Cracker, Adobe Acrobat Reader DC
-**Category:** Defensive Security · Cryptanalysis · Identity Security
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Ali%20Abbas%20Qazi-0A66C2?style=flat&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/ali-abbas-qazi/)
+[![GitHub](https://img.shields.io/badge/GitHub-Ali--Abbas--Qazi-181717?style=flat&logo=github&logoColor=white)](https://github.com/Ali-Abbas-Qazi)
+
+*Lab exercise using a training file provided by Networkwalks Academy — not a real-world engagement.*
+
+</div>
+
+| | |
+|---|---|
+| **Date** | September 2026 |
+| **Author** | Ali Abbas Qazi |
+| **Tools Used** | John the Ripper (Jumbo v1.9.0-jumbo-1), Johnny GUI v2.2, OnlineHashCrack PDF Hash Extractor, Networkwalks Hash Calculator, Networkwalks Password Cracker, Adobe Acrobat Reader DC |
+| **Category** | Defensive Security · Cryptanalysis · Identity Security |
+
+---
+
+## Table of Contents
+
+- [Executive Summary](#executive-summary)
+- [Skills Demonstrated](#skills-demonstrated)
+- [Workflow Overview](#workflow-overview)
+- [Core Security Principles](#core-security-principles)
+- [Task 1: Local Cracking with John the Ripper & Johnny GUI](#task-1-local-cracking-with-john-the-ripper--johnny-gui)
+- [Task 2: Browser-Based Extraction & Cracking with Networkwalks Tools](#task-2-browser-based-extraction--cracking-with-networkwalks-tools)
+- [Comparing the Two Approaches](#comparing-the-two-approaches)
+- [Security Implications & Remediation](#security-implications--remediation)
+- [Lessons Learned](#lessons-learned)
 
 ---
 
@@ -12,6 +37,30 @@
 This lab walks through two ways of recovering a password from an encrypted PDF: a local, offline approach using John the Ripper and its Johnny GUI, and a browser-based approach using Networkwalks' free hash and cracking tools. Both start from the same locked file and end at the same password, but they get there through very different workflows.
 
 The point isn't the specific password recovered here. It's what the exercise demonstrates: a password's strength is really a measure of how long it survives against automation. A one-word, all-lowercase password can be tested against thousands of guesses in seconds, whether you're running dedicated cracking software or just pasting a hash into a website. That has a direct business implication — password policy and entropy requirements aren't bureaucratic overhead, they're the difference between a document that holds up under attack and one that doesn't.
+
+## Skills Demonstrated
+
+- Hash extraction from encrypted documents (`pdf2john` and browser-based hash calculators)
+- Offline vs. cloud-based cracking tradeoffs, including data-handling and privacy implications
+- Dictionary attack methodology and wordlist-based password recovery
+- PDF encryption fundamentals (security handler revisions, key length)
+- Tooling: John the Ripper (Jumbo), Johnny GUI, browser-based cracking utilities
+- Technical documentation and security reporting for a non-specialist audience
+
+## Workflow Overview
+
+Both tasks follow the same underlying process, just with different tools at each stage:
+
+```mermaid
+flowchart LR
+    A[Locked PDF] --> B["Extract hash (pdf2john)"]
+    B --> C[Save / paste hash]
+    C --> D[Dictionary attack]
+    D --> E[Recovered password]
+    E --> F[Unlock PDF & verify flag]
+```
+
+---
 
 ## Core Security Principles
 
@@ -81,7 +130,7 @@ For the second approach, I used Networkwalks' own Hash Calculator. Unlike Online
 
 ### Step 2 — Running the Dictionary Attack
 
-I pasted the extracted `$pdf$` hash into Networkwalks' Password Cracker and ran it against the tool's built-in 100-word list. It found a match on `password1` after 91 attempts — proof of how quickly a common password falls, even against a tiny wordlist.
+I pasted the extracted `$pdf$` hash into Networkwalks' Password Cracker and ran it against the tool's built-in 100-word list. It matched `password1` after 91 attempts at roughly 9 passwords per second — under 10 seconds, start to finish, against a wordlist smaller than most people's contact lists.
 
 ![Dictionary Attack Match](assets/screenshots/NWT_Password_found.png)
 
@@ -117,4 +166,8 @@ There's nothing complicated about why this password broke so fast: it's a dictio
 - **Multi-factor authentication.** Where it's supported, MFA means a cracked password alone isn't enough to get in — though PDF encryption itself doesn't currently support this, it's the standard for account-level access.
 - **Modern encryption revisions.** Older PDF security handlers (like the R4/128-bit revision used in this lab) are weaker than newer AES-256-based revisions. Where possible, use tools that default to the strongest available PDF encryption standard.
 
-> All testing in this lab was performed against a sample file distributed for training purposes as part of Networkwalks Academy's cybersecurity coursework.
+---
+
+## Lessons Learned
+
+Comparing the two workflows made the tradeoff between convenience and control more concrete than I expected going in. The difference between the Networkwalks Hash Calculator parsing locally and OnlineHashCrack uploading the file to a server was a detail I almost skipped past — until I realized it's exactly the kind of choice that matters once you're handling something you can't afford to leak. If I ran this again, I'd time both cracks precisely instead of estimating from the pw/s counter, and I'd swap in a larger wordlist to see how far a genuinely weak password like `password1` sits below the point where cracking starts taking real effort.
