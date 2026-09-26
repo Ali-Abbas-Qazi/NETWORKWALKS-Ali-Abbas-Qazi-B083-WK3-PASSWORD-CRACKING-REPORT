@@ -88,7 +88,7 @@ I ran the locked file through OnlineHashCrack's PDF Hash Extractor, which uses `
 
 ![Hash Extraction via Web Extractor](<Finding Hash.png>)
 
-<sub>Finding Hash.png</sub>
+<p align="center"><sub>Finding Hash.png</sub></p>
 
 ### Step 2 — Preparing the Hash File
 
@@ -108,7 +108,7 @@ One thing that's easy to miss here: if the hash gets copied with stray character
 
 ![Saving Hash to Local Text File](<Saving hash1 as txt.png>)
 
-<sub>Saving hash1 as txt.png</sub>
+<p align="center"><sub>Saving hash1 as txt.png</sub></p>
 
 ### Step 3 — Loading the Hash into Johnny
 
@@ -116,7 +116,7 @@ With `hash1.txt` saved, I opened Johnny (pointed at the `john.exe` binary from t
 
 ![Loading Hash File into Johnny](<uploaded hash file to johnny.png>)
 
-<sub>uploaded hash file to johnny.png</sub>
+<p align="center"><sub>uploaded hash file to johnny.png</sub></p>
 
 ### Step 4 — Cracking and Verifying
 
@@ -124,7 +124,7 @@ Starting the attack, Johnny made short work of it — the password recovered was
 
 ![Cracked Password in Johnny GUI](<hash1 Cracked.png>)
 
-<sub>hash1 Cracked.png</sub>
+<p align="center"><sub>hash1 Cracked.png</sub></p>
 
 > **Flag captured:** `nw{networkwalks_flag1_jtr_270521_1}`
 
@@ -132,7 +132,7 @@ Opening the original PDF in Adobe Acrobat Reader with the recovered password con
 
 ![Decrypted PDF Flag Verification](<Unlocked PDF file.png>)
 
-<sub>Unlocked PDF file.png</sub>
+<p align="center"><sub>Unlocked PDF file.png</sub></p>
 
 > **Pro Tip (CLI Alternative):** On Linux/Kali or Windows PowerShell with John the Ripper installed, this entire extraction and cracking workflow can be executed directly from the terminal without external web utilities or GUI frontends:
 > ```bash
@@ -156,7 +156,7 @@ For the second approach, I used Networkwalks' own Hash Calculator. Unlike Online
 
 ![Networkwalks Hash Calculator Extraction](<NWT Hash found.png>)
 
-<sub>NWT Hash found.png</sub>
+<p align="center"><sub>NWT Hash found.png</sub></p>
 
 ### Step 2 — Running the Dictionary Attack
 
@@ -164,7 +164,7 @@ I pasted the extracted `$pdf$` hash into Networkwalks' Password Cracker and ran 
 
 ![Dictionary Attack Match](<NWT Password found.png>)
 
-<sub>NWT Password found.png</sub>
+<p align="center"><sub>NWT Password found.png</sub></p>
 
 ### Step 3 — Confirming Access
 
@@ -172,7 +172,7 @@ Same as before: entering `password1` into the encrypted PDF opened it and confir
 
 ![Decrypted PDF Verification](<Unlocked PDF file.png>)
 
-<sub>Unlocked PDF file.png</sub>
+<p align="center"><sub>Unlocked PDF file.png</sub></p>
 
 ---
 
